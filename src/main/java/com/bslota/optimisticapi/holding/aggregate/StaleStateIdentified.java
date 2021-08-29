@@ -4,11 +4,13 @@ import java.util.UUID;
 
 public class StaleStateIdentified extends RuntimeException {
 
-    private StaleStateIdentified(UUID id) {
-        super(String.format("Aggregate of id %s is stale", id));
-    }
+	private static final long serialVersionUID = -8449659856953767236L;
 
-    public static StaleStateIdentified forAggregateWith(UUID id) {
-        return new StaleStateIdentified(id);
-    }
+	private StaleStateIdentified(UUID id) {
+		super(String.format("Aggregate of id %s is stale", id));
+	}
+
+	public static StaleStateIdentified forAggregateWith(UUID id) {
+		return new StaleStateIdentified(id);
+	}
 }

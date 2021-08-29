@@ -1,3 +1,47 @@
 spring:
-  application:
-    name: optimistic-api
+   application:
+      name: optimistic-api
+
+   datasource:
+      url: jdbc:h2:mem:example-app;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      platform: h2
+      username: sa
+      password: null
+      driverClassName: org.h2.Driver
+      cachePrepStmts: true
+      prepStmtCacheSize: 250
+      prepStmtCacheSqlLimit: 2048
+      useServerPrepStmts: true
+
+   jpa:
+      database-platform: org.hibernate.dialect.H2Dialect
+      database: H2
+      openInView: false
+      show_sql: false
+      generate-ddl: true
+      hibernate:
+         ddl-auto: update
+      properties:
+         javax:
+            persistence:
+               sharedCache:
+                  mode: ENABLE_SELECTIVE      
+         hibernate:
+            generate_statistics: true
+            javax:
+               cache:
+                  provider: org.ehcache.jsr107.EhcacheCachingProvider
+                  uri: classpath:ehcache.xml
+            cache:
+               use_query_cache: true
+               use_second_level_cache: true
+               region:
+                  factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
+                                    
+   h2:
+      console:
+         enabled: true
+         settings:
+            trace: false
+            web-allow-others: true             
+             

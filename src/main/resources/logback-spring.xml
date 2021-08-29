@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOGS" value="./logs" />
+
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${pathfile}/optimistic-api.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${pathfile}/archived/optimistic-api/api.%d{yyyy-MM-dd}.log</FileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{100} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{dd-MM-yyyy HH:mm:ss} [%thread] %-5level %logger{100} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="STDOUT_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="STDOUT" />
+	</appender>
+
+	<appender name="FILE_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="FILE" />
+	</appender>
+
+	<logger name="org.springframework" level="info" />
+
+	<logger name="org.hibernate" level="INFO"/>
+	 
+	<!--  # SQL statements and parameters -->
+	 <logger name="org.hibernate.SQL" level="DEBUG"/>
+	 <logger name="org.hibernate.type.descriptor.sql" level="TRACE"/>
+	 <logger name="org.hibernate.cache" level="DEBUG"/>	 
+ 	 <logger name="org.hibernate.stat" level="DEBUG"/> 
+ 
+	<root level="INFO">
+		<appender-ref ref="FILE_ASYNC" />
+		<appender-ref ref="STDOUT_ASYNC" />
+	</root>
+
+</configuration>
